@@ -1,4 +1,10 @@
-# Ecommerceapp
+# Ecommerce front end.
+
+## Backend should be up and running before running this project.
+
+[Click here](https://github.com/kafleprakash96/fullstack-ecommerce-springboot) for spring boot backend.
+
+## Description
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
 
