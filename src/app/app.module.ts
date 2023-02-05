@@ -6,6 +6,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 
 import { HttpClientModule } from '@angular/common/http'
 import { ProductService } from './services/product.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ProductService } from './services/product.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
