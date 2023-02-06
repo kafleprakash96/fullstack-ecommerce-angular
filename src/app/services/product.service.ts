@@ -1,53 +1,52 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from '../common/product';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+import { Product } from '../common/product'
 import { map } from 'rxjs/operators'
-import { ProductCategory } from '../common/product-category';
+import { ProductCategory } from '../common/product-category'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
+  private baseUrl = 'http://localhost:8080/api/products'
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private categoryUrl = 'http://localhost:8080/api/product-category'
 
-  private categoryUrl = 'http://localhost:8080/api/product-category';
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getProductList(theCategoryId: number): Observable<Product[]> {
-
     // Build url based on given category id
 
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
 
-    return this.getProducts(searchUrl);
+    return this.getProducts(searchUrl)
   }
 
   getProductCategories(): Observable<ProductCategory[]> {
-
-    return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
-      map(response => response._embedded.productCategory)
-    );
-
+    return this.httpClient
+      .get<GetResponseProductCategory>(this.categoryUrl)
+      .pipe(map((response) => response._embedded.productCategory))
   }
 
   searchProducts(theKeyword: string): Observable<Product[]> {
-
     // Build url based on given keyword
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`
 
+    return this.getProducts(searchUrl)
+  }
 
-    return this.getProducts(searchUrl);
+  getProduct(theProductId: number): Observable<Product> {
+    //build url based on product id
+    const productUrl = `${this.baseUrl}/${theProductId}`
 
-
+    return this.httpClient.get<Product>(productUrl)
   }
 
   private getProducts(searchUrl: string): Observable<Product[]> {
-    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
-      map(response => response._embedded.products)
-    );
+    return this.httpClient
+      .get<GetResponseProducts>(searchUrl)
+      .pipe(map((response) => response._embedded.products))
   }
 }
 

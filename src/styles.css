@@ -87,7 +87,7 @@ a{
     display:inline-block
 }
 
-a:active,a:focus,a:hover{
+a:active,a:focus,a:hover,a:link{
     text-decoration:none;
     outline:0
 }
@@ -722,6 +722,10 @@ table.table.table-bordered th{
 .detail-section{
     margin-top:60px
 }
+
+.detail-img{
+    width:30%;
+}
 /**/
 
 /* 
@@ -765,9 +769,10 @@ footer ul li a{
 }
 footer{
     background:#232324;
-    z-index:1;
-    position:relative;
-    text-align:center
+    position:fixed;
+    bottom:0px;
+    text-align:center;
+    width:100%;
 }
 footer li a{
     color:#313131;
