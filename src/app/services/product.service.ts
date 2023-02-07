@@ -15,6 +15,18 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
+  //Build url based on category id, page and page size
+  getProductListPaginate(thePage:number,
+                         thePageSize:number,
+                         theCategoryId:number):Observable<GetResponseProducts>{
+
+                          const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+                                              + `&page=${thePage}&size=${thePageSize}`;
+                          
+                          return this.httpClient.get<GetResponseProducts>(searchUrl);
+
+  }
+
   getProductList(theCategoryId: number): Observable<Product[]> {
     // Build url based on given category id
 
@@ -48,11 +60,19 @@ export class ProductService {
       .get<GetResponseProducts>(searchUrl)
       .pipe(map((response) => response._embedded.products))
   }
+
+
 }
 
 interface GetResponseProducts {
   _embedded: {
     products: Product[]
+  }
+  page:{
+    size:number,
+    totalElements : number,
+    totalPages : number,
+    number : number
   }
 }
 
@@ -60,4 +80,5 @@ interface GetResponseProductCategory {
   _embedded: {
     productCategory: ProductCategory[]
   }
+
 }

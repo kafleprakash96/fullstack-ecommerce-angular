@@ -769,10 +769,12 @@ footer ul li a{
 }
 footer{
     background:#232324;
-    position:fixed;
     bottom:0px;
     text-align:center;
     width:100%;
+    position:relative;
+    left:0;
+    height:80px
 }
 footer li a{
     color:#313131;
