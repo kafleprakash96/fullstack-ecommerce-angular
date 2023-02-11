@@ -110,4 +110,8 @@ export class ProductListComponent {
       this.theTotalElements = data.page.totalElements
     }
   }
+
+  addToCart(theProduct : Product){
+    console.log(`Adding to cart: ${theProduct.name}`)
+  }
 }
