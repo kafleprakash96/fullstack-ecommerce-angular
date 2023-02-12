@@ -28,10 +28,33 @@ export class CartService {
           break
         }
       }
+
+      //check if the item is found
+      alreadyExistsInCart = existingCartItem != undefined
     }
 
-    //check if the item is found
+    if (!alreadyExistsInCart) {
+      //just add item to array
+      this.cartItems.push(theCartItem)
+    } else {
+      if (existingCartItem)
+        //increase the quantity
+        existingCartItem.quantity++
+    }
 
-    alreadyExistsInCart = existingCartItem != undefined
+    //compute cart total price and total quantity
+    this.computeCartTotals()
+  }
+  computeCartTotals() {
+    let totalPriceValue: number = 0
+    let totalQuantityValue = 0
+
+    for (let currentCartItem of this.cartItems) {
+      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice
+      totalQuantityValue += currentCartItem.quantity
+    }
+    //publish the new values. all subscribers will receive new data
+    this.totalPrice.next(totalPriceValue)
+    this.totalQuantity.next(totalQuantityValue)
   }
 }
